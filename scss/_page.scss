@@ -1,0 +1,448 @@
+.page-wrapper{
+    width: 100%;
+    margin: 0 auto;
+    min-height: 1000px;
+    .content-container{
+        min-height: 500px;
+    }
+    @media (min-width: 768px){
+        .content-container{
+            min-height: 700px;
+        }
+    }
+    .page-hero{
+        width: 100%;
+        height: 100vh;
+        background: $black;
+        position: relative;
+    }
+    .page-hero-container{
+        @include user-select;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-weight: 300;
+        color: rgba($white, 0.5);
+        @include transform(translate(-50%,-50%));
+        .page-header{
+            text-align: center;
+            padding: 0.25rem;
+            margin-bottom: 1.35rem;
+            position: relative;
+            span{
+                display: inline-block;
+                font-size: 2.8rem;
+                line-height: 3rem;
+                font-weight: 300;
+                text-transform: uppercase;
+            }
+        }
+        p{
+            width: 100%;
+            font-size: 1.25rem;
+            margin: 0 auto;
+            padding: 1.5rem 0;
+            max-width: 500px;
+            text-align: center;
+        }
+        .page-hero-button{
+           display: -ms-flex;
+           display: flex;
+           justify-content: center;
+           margin: 2rem 0;
+           button{
+            cursor: pointer;
+            outline: none;
+            width: 150px;
+            height: 150px;
+            opacity: 0.5;
+            border-radius: 50%;
+            border: 1px solid rgba($white, 0.5);
+            background: transparent;
+            position: relative;
+            @include animation(expandButton 1.5s ease infinite alternate);
+            @include transition(0.45s ease);
+            @keyframes expandButton {
+                0%{ opacity: 0.5; }
+                100%{ opacity: 1; }
+            }
+            &:hover{
+                width: 130px;
+                height: 130px;
+                border: 1px solid rgba($primary-color, 0.5);
+                &::before{
+                    color: rgba($primary-color, 0.5);
+                }
+                &::after{
+                    bottom: -3rem;
+                    opacity: 1;
+                }
+            }
+            &::before{
+                content: '\02193';
+                color: rgba($white, 0.5);
+                font-size: 3rem;
+                position: relative;
+                top: 0;
+                opacity: 0.5;
+                @include animation(bouncingArrow 1.5s ease infinite alternate);
+                @include transition(0.45s ease);
+            }
+            @keyframes bouncingArrow {
+                0%{
+                    opacity: 0.5;
+                    top: 0;
+                }
+                100%{
+                    opacity: 1;
+                    top: 1rem;
+                }
+            }
+            &::after{
+                content: attr(data-button-title);
+                position: absolute;
+                bottom: -2rem;
+                left: 0;
+                width: 100%;
+                color: rgba($white, 0.5);
+                text-transform: uppercase;
+                font-size: 0.7rem;
+                opacity: 0;
+                @include transition(0.6s ease);
+            }
+           }
+        }
+    }
+    .page-header-bar{
+        position: absolute;
+        width: 300px;
+        height: 5px;
+        bottom: -1.35rem;
+        right: 0;
+        background-image: linear-gradient(45deg, $black, $dark-color);
+    }   
+    // home page styles
+
+    // solar and engineering section
+    .page-section{
+        position: relative;
+        [class*="sub-header"]{
+            span{
+                display: inline-block;
+                font-size: 1.7rem;
+                font-weight: 300;
+                line-height: 3rem;
+                text-transform: uppercase;
+                position: relative;
+                &::before{
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 40%;
+                    border-bottom: 2px solid rgba($white, 0.5);
+                }
+            }
+            @media (max-width: 1500px){
+                span{ font-size: 1.5rem; }
+            }
+        }
+    }
+    .section-wrapper{
+        display: -ms-flex;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        justify-content: center;
+         > section {
+            -ms-flex: 1 0 auto;
+            flex: 1 0 auto;
+            width: 100%;
+            min-height: 500px;
+            overflow: hidden;
+            &:hover{
+                > div {
+                    &::before{ opacity: 0.6; }
+                }
+            }
+         }
+         @media (min-width: 768px){
+            > section { max-width: 50%; }
+            .solar-images{
+                border-right: 1px solid rgba($grey, 0.05);
+            }
+         }
+    }
+    .solar-images,
+    .electrical-images{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        z-index: -1;
+        @include transition(0.45s ease);
+        &::before{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+            background-image: linear-gradient(to top, rgba($black,0.95), rgba($orange, 0.25));
+            z-index: 2;
+            @include transition(0.25s ease-in-out);
+        }
+        > div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover !important;
+            &:first-child{
+                z-index: 1;
+            }
+        }
+    }
+    .solar-images{
+        > div {
+            @include filter(grayscale(1));
+            @include transition(1s ease-in);
+        }
+        > div.current-image{
+            z-index: 1;
+            @include filter(grayscale(0));
+        } 
+    }
+    .solar-images{
+        .img-one{background: url('../img/solar/solar-one.jpg') no-repeat center;}
+        .img-two{background: url('../img/solar/solar-two.jpg') no-repeat center;}
+        .img-three{background: url('../img/solar/solar-three.jpg') no-repeat center;}
+        .img-four{background: url('../img/solar/solar-four.jpg') no-repeat center;}
+        .img-five{background: url('../img/solar/solar-five.jpg') no-repeat center;}
+        .img-six{background: url('../img/solar/solar-six.jpg') no-repeat center;}
+     }
+     .electrical-images{
+        .img-one{background: url('../img/electrical/electrical.jpg') no-repeat center;}
+    }
+    .solar-content-container,
+    .electrical-content-container{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0.85rem;
+        border: 1px solid rgba($grey, 0.25);
+        border-radius: 0.5rem;
+        background: rgba($black, 0.35);
+        @include transform(translate(-50%, -50%));
+        @include transition(0.45s ease-in-out);
+        &:hover{ background: rgba($black, 0.5);}
+        > div {
+            color: $white;
+            font-weight: 300;
+        }
+        article{
+            > p {
+                position: relative;
+                padding-left: 1rem;
+                &::before{
+                    content: '\2013';
+                    position: absolute;
+                    left: 0;
+                }
+            }
+        }
+    }
+    @media (min-width: 1400px){
+        .solar-content-container,
+        .electrical-content-container{
+            max-width: 50%;
+        }
+    }
+
+    .section-header{
+        @include user-select;
+        padding: 1.25rem 0;
+        position: relative;
+        span{
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            font-size: 2.8rem;
+            line-height: 3rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            color: rgba($white, 0.5);
+        }
+    } 
+    
+    // our service section
+    .our-services{
+        background-color: $black;
+        padding: 3.5rem 1.5rem;
+        padding-bottom: 6rem;
+        position: relative;
+        z-index: 1;
+        &::before{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        > div {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 1300px;
+        } 
+        .our-services-content{
+            display: -ms-flex;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            @include perspective(1000px);
+            article{
+                outline: none;
+                -ms-flex: 1 0 auto;
+                flex: 1 0 auto;
+                margin-bottom: 1rem;
+                width: 100%;
+                min-height: 350px;
+                background: $white;
+                position: relative;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                border: 1px solid rgba($grey, 0.02);
+                @include transform(rotateX(0deg));
+                @include transition(0.75s ease-in-out);
+                &:hover{ 
+                    @include transform(rotateX(0));
+                    &::after{
+                        opacity: 0.6;
+                    }
+                    .section-sub-header{
+                        span{ color: $dark-color; }
+                    }
+                }
+                &::before{
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 30px;
+                    border-top-left-radius: 10px;
+                    border-top-right-radius: 10px;
+                }
+                &::after{
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    width: 50px;
+                    height: 50px;
+                    opacity: 0.25;
+                    background-size: contain !important;
+                    @include transition(0.35s linear);
+                }
+                .section-sub-header{
+                    display: table;
+                    table-layout: fixed;
+                    width: 100%;
+                    min-height: 100px;
+                    position: relative;
+                    z-index: 1;
+                    span{
+                        font-size: 1.5rem;
+                        line-height: 1.5rem;
+                        padding: 0.5rem;
+                        padding-top: 3rem;
+                        font-weight: 400;
+                        display: table-cell;
+                        vertical-align: middle;
+                        text-align: center;
+                    }
+                }
+                p { 
+                    font-size: 1.25rem;
+                    font-weight: 300;
+                    padding: 1.5rem; 
+                }
+            }
+            @media (min-width: 767px){
+                article{
+                    max-width: 300px;
+                    @include transform(rotateX(25deg));
+                }
+            }
+            
+            .service-development{
+                &::before{
+                    background-image: linear-gradient(to right, $black, $primary-color);
+                }
+                &::after{
+                    background: url('../img/services/icon-development.svg');
+                }
+            }
+            .service-financing{
+                &::before{
+                    background-image: linear-gradient(to right, $black, $orange);
+                }
+                &::after{
+                    background: url('../img/services/icon-tailored-finance.svg');
+                }
+            }
+            .service-engineering{
+                &::before{
+                    background-image: linear-gradient(to right, $black, $white);
+                }
+                &::after{
+                    background: url('../img/services/icon-engineering-procurement-construction.svg');
+                }
+            }
+            .service-operation{
+                &::before{
+                    background-image: linear-gradient(to right, $black, $solar-dark-green);
+                }
+                &::after{
+                    background: url('../img/services/icon-operation-and-maintenance.svg');
+                }
+            }
+        }
+    }
+    .our-services.service-development{
+        &::before{
+            background-image: linear-gradient(to bottom, $black, rgba($primary-color,0.35), $black);
+        }
+    }
+    .our-services.service-financing{
+        &::before{
+            background-image: linear-gradient(to bottom, $black, rgba($orange, 0.35), $black);
+        }
+    }
+    .our-services.service-engineering{
+        &::before{
+            background-image: linear-gradient(to bottom, $black, rgba($white,0.35), $black);
+        }
+    }
+    .our-services.service-operation{
+        &::before{
+            background-image: linear-gradient(to bottom, $black, rgba($solar-dark-green,0.35), $black);
+        }
+    }
+
+    // about us section
+    .about-us{
+        padding-bottom: 2rem;
+        background-image: linear-gradient(to bottom, $black, $dark-color);
+    }
+} 
